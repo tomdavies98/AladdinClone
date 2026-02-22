@@ -1,5 +1,8 @@
 # Aladdin Clone
 
+![Uploading AladdinCloneQuickDisplay2.gif…]()
+
+
 A simplified clone of an Aladdin-style investment management platform: React frontend, Python (FastAPI) backend, and CSV-backed storage. Users can log in and manage portfolios, risk scenarios, orders, operations, private markets, reports, ESG data, wealth models, integrations, and preferences.
 
 ## Prerequisites
