@@ -2,6 +2,7 @@
 
 ![AladdinCloneQuickDisplay2](https://github.com/user-attachments/assets/d8bd3486-8bce-4d69-86d8-d8d69721f4bc)
 
+*This application was created by leveraging different A.I models. A code review with issues to resolve is attached in the docs folder. Download and open the code review html file to view.*
 
 A simplified clone of an Aladdin-style investment management platform: React frontend, Python (FastAPI) backend, and CSV-backed storage. Users can log in and manage portfolios, risk scenarios, orders, operations, private markets, reports, ESG data, wealth models, integrations, and preferences.
 
