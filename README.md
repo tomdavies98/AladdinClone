@@ -73,15 +73,27 @@ A simplified clone of an Aladdin-style investment management platform: React fro
 
 ## Features (from report)
 
-1. **Whole-Portfolio Management** — Portfolios and holdings  
-2. **Risk Analytics** — Scenarios and results  
-3. **Trading and Order Management** — Orders  
-4. **Operations and Accounting** — Accounts and transactions  
-5. **Private Markets and Alternatives** — Funds and commitments  
-6. **Data and Analytics** — Saved reports  
-7. **ESG and Climate** — Portfolio ESG scores  
-8. **Wealth Management** — Model portfolios and client accounts  
-9. **Ecosystem and Infrastructure** — Integrations  
-10. **Design Principles** — User preferences (key/value)
+1. **Whole-Portfolio Management** — Create and manage portfolios (name, currency) and their holdings (symbol, asset class, quantity, average cost). View portfolio totals and holdings in tables and pie charts.
+2. **Risk Analytics** — Define risk scenarios (e.g. stress tests) and attach results per portfolio and metric. Compare scenario results across portfolios in bar charts.
+3. **Trading and Order Management** — Create and track orders linked to portfolios (symbol, side, quantity, order type, status). Manage order life cycle from placement to execution.
+4. **Operations and Accounting** — Manage client accounts and transactions (credits, debits, dates). Keep a simple ledger view of account activity.
+5. **Private Markets and Alternatives** — Manage funds and commitments (fund, amount, currency, date). Track capital calls and commitments for alternative investments.
+6. **Data and Analytics** — Save and list reports (name, type, parameters). Store report configurations for reuse and auditing.
+7. **ESG and Climate** — View and manage ESG scores and climate-related metrics per portfolio. Track environmental, social, and governance data at the portfolio level.
+8. **Wealth Management** — Define model portfolios and link client accounts to them. Support discretionary and advisory workflows with model allocation tracking.
+9. **Ecosystem and Infrastructure** — Manage integrations (name, type, config). Track external systems and APIs connected to the platform.
+10. **Design Principles** — Store user preferences as key/value pairs. Customize display and behavior (e.g. theme, defaults) per user.
 
 All data is user-scoped; the backend filters by the authenticated user’s ID.
+
+---
+
+## How to sign in
+
+1. **Start the app** — Ensure the backend is running on port 8000 and the frontend on port 5173 (see Backend and Frontend sections above).
+2. **Open the app** — In a browser go to `http://localhost:5173`.
+3. **Sign in** — Click **Sign in** (or go to `/login`), enter your username and password, then click **Sign in**. You are taken to the app dashboard at `/app`.
+4. **Demo account** — To try the app with sample data, sign in with username **`demo`** and password **`demo`** (after running the seed scripts as described in Backend).
+5. **Create an account** — From the login page, use the **create an account** link to go to `/signup`. Enter username, password, confirm password, and optional display name, then submit. You are signed in automatically and taken to the dashboard.
+
+After signing in, use the sidebar to open any feature (Portfolio, Risk, Trading, Operations, etc.). Signing out returns you to the landing page.
