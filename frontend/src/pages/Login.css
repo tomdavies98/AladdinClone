@@ -1,0 +1,123 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg, #0f1419);
+  padding: var(--space-4);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface, #1a222c);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.login-title {
+  font-size: var(--font-title);
+  font-weight: var(--font-weight-bold);
+  color: var(--text, #e6edf3);
+  margin: 0 0 var(--space-1);
+}
+
+.login-subtitle {
+  font-size: var(--font-body-sm);
+  color: var(--text-muted, #8b9cb3);
+  margin: 0 0 var(--space-5);
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.login-form label span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted, #8b9cb3);
+  margin-bottom: var(--space-2);
+}
+
+.login-form input {
+  width: 100%;
+  padding: var(--space-3) var(--space-3);
+  background: var(--bg, #0f1419);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-md);
+  color: var(--text, #e6edf3);
+  font-size: 1rem;
+}
+
+.login-form input::placeholder {
+  color: var(--text-muted, #8b9cb3);
+  opacity: 0.7;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--accent, #3b82f6);
+}
+
+.login-form input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.login-error {
+  color: var(--danger, #ef4444);
+  font-size: 0.9rem;
+  margin: 0 0 var(--space-4);
+}
+
+.login-btn {
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--accent, #3b82f6);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: var(--space-2);
+}
+
+.login-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.login-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.login-hint {
+  margin-top: var(--space-5);
+  font-size: 0.8rem;
+  color: var(--text-muted, #8b9cb3);
+}
+
+.login-hint a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.login-hint a:hover {
+  text-decoration: underline;
+}
+
+.login-hint code {
+  background: rgba(255,255,255,0.08);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}

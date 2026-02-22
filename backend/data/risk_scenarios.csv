@@ -1,0 +1,4 @@
+id,user_id,name,scenario_type,params_json
+a4cf91e6-e378-47b4-9c31-14a8a3f0f127,51916a85-65b5-424c-b958-553e8be6499c,Fed Rate Shock,stress,"{""rate_change_bps"": 100}"
+04c40616-8dce-4eea-88df-e8fa4b76b9e1,51916a85-65b5-424c-b958-553e8be6499c,Global Market Correction,historical,"{""drawdown_pct"": 20}"
+0ed2e399-d0c1-454c-ad7c-271c001f877c,51916a85-65b5-424c-b958-553e8be6499c,Severely Adverse,stress,"{""recession"": true}"

@@ -1,0 +1,42 @@
+.feature-page {
+  max-width: 720px;
+}
+
+/* Data-heavy pages (tables, charts) get more width */
+.feature-page.feature-page--wide {
+  max-width: 960px;
+}
+
+.feature-page h1 {
+  font-size: var(--font-title);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-title-ls);
+  color: var(--text, #e6edf3);
+  margin: 0 0 var(--space-3);
+}
+
+.feature-desc {
+  font-size: var(--font-body);
+  color: var(--text-muted, #8b9cb3);
+  line-height: var(--line-height-body);
+  margin: 0 0 var(--space-5);
+}
+
+.feature-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-links a {
+  color: var(--accent, #3b82f6);
+  text-decoration: none;
+}
+
+.feature-links a:hover {
+  text-decoration: underline;
+}
+
+.feature-links li {
+  margin-bottom: var(--space-2);
+}

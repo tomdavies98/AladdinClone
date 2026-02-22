@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aladdin Clone — Code Review Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-alt: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --critical: #f85149;
+      --high: #d29922;
+      --medium: #3fb950;
+      --low: #79c0ff;
+      --radius: 8px;
+      --shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.25rem 0;
+      color: var(--text);
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin: 0 0 0.75rem 0;
+    }
+    .toc ul { margin: 0; padding-left: 1.25rem; }
+    .toc li { margin-bottom: 0.35rem; }
+    .toc a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .toc a:hover { text-decoration: underline; }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+    .badge--critical { background: rgba(248,81,73,0.2); color: var(--critical); }
+    .badge--high    { background: rgba(210,153,34,0.2); color: var(--high); }
+    .badge--medium  { background: rgba(63,185,80,0.2); color: var(--medium); }
+    .badge--low     { background: rgba(121,192,255,0.2); color: var(--low); }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    section h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .issue {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    }
+    .issue:last-child { margin-bottom: 0; }
+    .issue__title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0 0 0.35rem 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .issue__meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .issue__meta code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--surface-alt);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+    .issue__body {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .issue__body p { margin: 0 0 0.5rem 0; }
+    .issue__body p:last-child { margin-bottom: 0; }
+    .issue__body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      background: var(--surface-alt);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Aladdin Clone — Code Review Report</h1>
+      <p class="subtitle">Full-stack review: backend (FastAPI, CSV store) and frontend (React, TypeScript). Issues ordered by severity.</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href="#critical">Critical</a> <span class="badge badge--critical">5</span></li>
+        <li><a href="#high">High</a> <span class="badge badge--high">6</span></li>
+        <li><a href="#medium">Medium</a> <span class="badge badge--medium">8</span></li>
+        <li><a href="#low">Low</a> <span class="badge badge--low">6</span></li>
+      </ul>
+    </nav>
+
+    <section id="critical">
+      <h2>Critical</h2>
+
+      <div class="issue">
+        <div class="issue__title">Hardcoded JWT secret in production <span class="badge badge--critical">Critical</span></div>
+        <div class="issue__meta">Backend · <code>app/core/config.py</code></div>
+        <div class="issue__body">
+          <p><code>secret_key: str = "change-me-in-production"</code> is used for signing JWTs. If deployed without overriding via <code>ALADDIN_SECRET_KEY</code>, tokens can be forged and any user impersonated.</p>
+          <p><strong>Recommendation:</strong> Require a non-default secret in production (e.g. fail startup if <code>secret_key == "change-me-in-production"</code> and <code>ENV=production</code>), and load from a secure secret store or env.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">CSV store has no concurrency control — data corruption risk <span class="badge badge--critical">Critical</span></div>
+        <div class="issue__meta">Backend · <code>app/db/csv_store.py</code></div>
+        <div class="issue__body">
+          <p><code>read_table</code> / <code>write_table</code> and <code>update_row</code> perform read-modify-write without file locking. Concurrent requests can overwrite each other’s writes or produce corrupted CSV files.</p>
+          <p><strong>Recommendation:</strong> Add file-based locking (e.g. <code>fcntl</code> on Unix, or a cross-process lock) around read-modify-write, or move to a proper database (SQLite/Postgres) for production.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Design-principles migration race can duplicate rows <span class="badge badge--critical">Critical</span></div>
+        <div class="issue__meta">Backend · <code>app/api/v1/design_principles.py</code> · <code>get_preferences</code></div>
+        <div class="issue__body">
+          <p>When migrating from <code>user_preferences</code> to <code>design_principles_preferences</code>, the code reads <code>all_dp</code>, appends rows, and writes. Two concurrent requests for the same user can both read, both append, and both write, leading to duplicate preference rows.</p>
+          <p><strong>Recommendation:</strong> Perform migration inside a lock (e.g. per-user or table-level) or use a single-writer pattern; alternatively migrate once in a script and remove runtime migration.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">API base URL is hardcoded — breaks different deployments <span class="badge badge--critical">Critical</span></div>
+        <div class="issue__meta">Frontend · <code>frontend/src/api/client.ts</code></div>
+        <div class="issue__body">
+          <p><code>const BASE = '/api/v1'</code> assumes the API is on the same origin. With frontend on port 5173 and backend on 8000, requests go to the wrong host unless a dev proxy is configured (and production may use a different API URL).</p>
+          <p><strong>Recommendation:</strong> Use <code>import.meta.env.VITE_API_BASE_URL</code> (or similar) with a fallback to <code>/api/v1</code>, and document proxy/env in README.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">401 response triggers full page reload instead of SPA navigation <span class="badge badge--critical">Critical</span></div>
+        <div class="issue__meta">Frontend · <code>frontend/src/api/client.ts</code></div>
+        <div class="issue__body">
+          <p>On 401, the client does <code>window.location.href = '/'</code>, which reloads the entire app and drops in-memory state. It also bypasses React Router.</p>
+          <p><strong>Recommendation:</strong> Clear token/user in auth context, then navigate to <code>/</code> via React Router (e.g. by exposing a global navigate or an auth listener that calls <code>navigate('/')</code>).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="high">
+      <h2>High</h2>
+
+      <div class="issue">
+        <div class="issue__title">CORS origins hardcoded to localhost <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Backend · <code>app/main.py</code></div>
+        <div class="issue__body">
+          <p><code>allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"]</code> prevents other origins (e.g. production frontend) from calling the API.</p>
+          <p><strong>Recommendation:</strong> Load allowed origins from config/env (e.g. <code>ALADDIN_CORS_ORIGINS</code>) and validate in production.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">No rate limiting on auth or API <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Backend · auth + API routes</div>
+        <div class="issue__body">
+          <p>Login, register, and other endpoints have no rate limiting. This allows brute-force attacks on passwords and DoS via request floods.</p>
+          <p><strong>Recommendation:</strong> Add rate limiting (e.g. slowapi or nginx) for <code>/auth/login</code>, <code>/auth/register</code>, and optionally per-IP or per-user on the rest of the API.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">No minimum password strength <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Backend · <code>app/api/auth.py</code> · Frontend · <code>Signup.tsx</code></div>
+        <div class="issue__body">
+          <p>Backend accepts any non-empty password; frontend only checks <code>password.length < 1</code>. Weak passwords (e.g. "1") are allowed.</p>
+          <p><strong>Recommendation:</strong> Enforce minimum length (e.g. 8) and optionally complexity in both backend (Pydantic validator) and frontend, with clear error messages.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Dashboard and feature pages swallow API errors <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Frontend · <code>Dashboard.tsx</code>, <code>Portfolio.tsx</code>, others</div>
+        <div class="issue__body">
+          <p>Dashboard uses <code>.catch(() => {})</code> and never sets an error state; Portfolio and similar pages don’t surface load/save errors to the user. Users see empty or stale data with no explanation.</p>
+          <p><strong>Recommendation:</strong> Add error state (e.g. <code>error: string | null</code>), set it in catch blocks, and display a clear message or toast so users know when something failed.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">No React error boundary <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Frontend · <code>App.tsx</code></div>
+        <div class="issue__body">
+          <p>An uncaught error in any component can white-screen the app with no recovery path.</p>
+          <p><strong>Recommendation:</strong> Wrap the app (or main route tree) in an error boundary that shows a fallback UI and optionally a “Reload” button.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Sync route handlers block the event loop <span class="badge badge--high">High</span></div>
+        <div class="issue__meta">Backend · all API route modules</div>
+        <div class="issue__body">
+          <p>All route handlers are <code>def</code>, not <code>async def</code>. CSV I/O blocks the single worker and can hurt latency under concurrent load.</p>
+          <p><strong>Recommendation:</strong> Use <code>async def</code> and run blocking CSV operations in <code>run_in_executor</code>, or switch to an async-friendly DB so the event loop stays responsive.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="medium">
+      <h2>Medium</h2>
+
+      <div class="issue">
+        <div class="issue__title">Token storage in localStorage is XSS-accessible <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Frontend · <code>contexts/AuthContext.tsx</code>, <code>api/client.ts</code></div>
+        <div class="issue__body">
+          <p>JWT and user data are stored in <code>localStorage</code>. Any XSS can read them and impersonate the user. For a demo this may be acceptable; for production, httpOnly cookies are preferable for the token.</p>
+          <p><strong>Recommendation:</strong> For production, consider cookie-based auth (httpOnly, Secure, SameSite) and CSRF protection; keep localStorage only for demo or low-risk use cases.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Destructive actions use <code>confirm()</code> — poor UX and a11y <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Frontend · Portfolio, Risk, Trading, DesignPrinciples, etc.</div>
+        <div class="issue__body">
+          <p><code>confirm('Delete this portfolio?')</code> and similar are blocking and not customizable; they’re also not ideal for keyboard/screen-reader users.</p>
+          <p><strong>Recommendation:</strong> Replace with an in-app confirmation modal (focus trap, clear “Cancel”/“Delete” actions, aria labels) for consistency and accessibility.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Cascade deletes implemented with N single-row deletes <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Backend · <code>portfolios.py</code>, <code>operations.py</code>, <code>risk.py</code>, <code>private_markets.py</code>, <code>wealth.py</code></div>
+        <div class="issue__body">
+          <p>Deleting a portfolio (or account, scenario, fund, model) deletes child rows one-by-one via <code>delete_row</code> in a loop, causing N full table read/writes. Same pattern elsewhere.</p>
+          <p><strong>Recommendation:</strong> Add a bulk delete (e.g. <code>delete_rows(table, id_field, id_values)</code>) that does one read and one write per table to reduce I/O and lock time.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">No structured logging <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Backend · application-wide</div>
+        <div class="issue__body">
+          <p>There is no logging for auth failures, API errors, or request flow. Debugging and auditing are difficult.</p>
+          <p><strong>Recommendation:</strong> Add a logger (e.g. Python <code>logging</code> or structlog), log 4xx/5xx and auth failures (without sensitive data), and optionally request IDs for tracing.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">useEffect + load() dependency and stability <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Frontend · <code>Portfolio.tsx</code>, <code>Risk.tsx</code>, <code>Trading.tsx</code></div>
+        <div class="issue__body">
+          <p>Pattern <code>useEffect(() => { load(); }, []);</code> omits <code>load</code> from the dependency array. <code>load</code> is recreated each render, so adding it would cause extra runs unless <code>load</code> is wrapped in <code>useCallback</code>.</p>
+          <p><strong>Recommendation:</strong> Define <code>load</code> with <code>useCallback(..., [])</code> (or appropriate deps) and include it in <code>useEffect</code> deps to satisfy exhaustive-deps and avoid stale closures.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Misleading type names: <code>Portfolio</code> as array type <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Frontend · <code>Risk.tsx</code>, <code>Trading.tsx</code></div>
+        <div class="issue__body">
+          <p><code>type Portfolio = { id: string; name: string }[]</code> names an array type “Portfolio”, which is confusing (suggests a single portfolio).</p>
+          <p><strong>Recommendation:</strong> Use e.g. <code>type PortfolioSummary = { id: string; name: string };</code> and <code>portfolios: PortfolioSummary[]</code> for clarity.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Duplicate <code>STATUS_COLORS</code> definitions <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Frontend · <code>Dashboard.tsx</code>, <code>Trading.tsx</code></div>
+        <div class="issue__body">
+          <p>Order status colors are defined in both files (Dashboard includes PENDING; Trading doesn’t). Changes must be kept in sync manually.</p>
+          <p><strong>Recommendation:</strong> Export a single <code>ORDER_STATUS_COLORS</code> (or similar) from a shared constants module and reuse in both components.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">No input validation on free-text fields <span class="badge badge--medium">Medium</span></div>
+        <div class="issue__meta">Backend · portfolios, risk, trading, operations, etc.</div>
+        <div class="issue__body">
+          <p>Fields like <code>symbol</code>, <code>scenario_type</code>, <code>side</code> accept arbitrary strings. Invalid values are stored and can complicate reporting or downstream logic.</p>
+          <p><strong>Recommendation:</strong> Use Pydantic enums or constrained strings (e.g. <code>Literal["BUY", "SELL"]</code>, max length, allowed characters) where a fixed set or format is intended.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="low">
+      <h2>Low</h2>
+
+      <div class="issue">
+        <div class="issue__title">JWT cannot be revoked before expiry <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Backend · <code>app/core/auth.py</code></div>
+        <div class="issue__body">
+          <p>Tokens are valid until expiry; there is no blacklist or revocation. Logging out only clears the client; the token remains valid if captured.</p>
+          <p><strong>Recommendation:</strong> For stricter security, maintain a revocation list (e.g. in DB or cache) and check it in <code>get_current_user_id</code>; optional for a demo.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Migration leaves <code>user_preferences</code> populated <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Backend · <code>app/api/v1/design_principles.py</code></div>
+        <div class="issue__body">
+          <p>After migrating a user’s preferences to <code>design_principles_preferences</code>, rows remain in <code>user_preferences</code>. Writes go only to the new table, so old table grows unnecessarily if many users are migrated.</p>
+          <p><strong>Recommendation:</strong> Optionally delete migrated rows from <code>user_preferences</code> after a successful migration (within the same lock/transaction as above).</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Variable shadowing in <code>list_holdings</code> <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Backend · <code>app/api/v1/portfolios.py</code></div>
+        <div class="issue__body">
+          <p><code>portfolios = csv_store.get_by_user("portfolios", user_id)</code> uses the name “portfolios” for a list of rows; the name is clear but can be confused with a “Portfolio” type. No functional bug.</p>
+          <p><strong>Recommendation:</strong> Rename to e.g. <code>user_portfolios</code> or <code>portfolio_rows</code> for consistency with other endpoints that use <code>rows</code>.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">Trading edit modal sends only <code>status</code> on update <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Frontend · <code>Trading.tsx</code></div>
+        <div class="issue__body">
+          <p><code>saveOrder</code> for edit sends <code>{ status: editOrder.status }</code> (current value), not a new status from the form. The backend only allows updating status; the form doesn’t expose status change in the edit modal, so “Edit” may be misleading.</p>
+          <p><strong>Recommendation:</strong> Either add a status dropdown in the edit modal and send the selected value, or rename the action to “View” / “Details” if editing is not supported.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">DesignPrinciples edit key shown as read-only label <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Frontend · <code>DesignPrinciples.tsx</code></div>
+        <div class="issue__body">
+          <p>In edit mode the key is displayed in a disabled input using <code>PREFERENCE_OPTIONS[key]?.label ?? key</code>. If the key isn’t in <code>PREFERENCE_OPTIONS</code>, the raw key is shown; otherwise the label. Minor UX inconsistency if custom keys are added server-side.</p>
+          <p><strong>Recommendation:</strong> Ensure backend and frontend share the same known keys, or document that only known keys are editable in the UI.</p>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue__title">App.css is effectively empty <span class="badge badge--low">Low</span></div>
+        <div class="issue__meta">Frontend · <code>App.css</code></div>
+        <div class="issue__body">
+          <p><code>App.css</code> only contains a comment. The import in <code>App.tsx</code> is harmless but unnecessary unless you add app-level styles later.</p>
+          <p><strong>Recommendation:</strong> Either add shared app-level rules (e.g. layout, global overrides) or remove the import to avoid an extra request.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Report generated for the Aladdin Clone codebase. Review covers backend (FastAPI, CSV store, auth) and frontend (React, TypeScript, API client, contexts, and feature pages).</p>
+      <p>Issues are ordered by severity: Critical → High → Medium → Low. Fix critical and high items before production use.</p>
+    </footer>
+  </div>
+</body>
+</html>

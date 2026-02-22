@@ -1,0 +1,5 @@
+id,user_id,provider,integration_type,status,config_json
+78eb5ff0-f82b-4608-bf2a-e30f8921c295,51916a85-65b5-424c-b958-553e8be6499c,State Street,custodian,active,{}
+1cb6ab5c-72af-4f63-a2ca-252816a8a932,51916a85-65b5-424c-b958-553e8be6499c,BNY Mellon,custodian,active,{}
+c6f70393-1158-4a86-a6fc-a8d7d151e20b,51916a85-65b5-424c-b958-553e8be6499c,Goldman Sachs Prime,broker,active,{}
+94532d70-6059-44a2-bd6f-ea8bd04a5e24,51916a85-65b5-424c-b958-553e8be6499c,Bloomberg,data,active,{}

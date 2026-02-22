@@ -1,0 +1,73 @@
+/* Shared styles for stats and charts */
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.stat-card {
+  min-width: 140px;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface, #1a222c);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card .stat-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--text, #e6edf3);
+}
+
+.stat-card .stat-label {
+  font-size: var(--font-caption);
+  color: var(--text-muted, #8b9cb3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: var(--space-1);
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.chart-card {
+  background: var(--surface, #1a222c);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-card h3 {
+  font-size: var(--font-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text, #e6edf3);
+  margin: 0 0 var(--space-4);
+}
+
+.chart-card .chart-container {
+  width: 100%;
+  height: 240px;
+}
+
+/* Recharts overrides for dark theme */
+.chart-card .recharts-text {
+  fill: var(--text-muted, #8b9cb3);
+}
+
+.chart-card .recharts-legend-item-text {
+  color: var(--text-muted, #8b9cb3) !important;
+}
+
+.chart-card .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--surface-alt, #232d3a) !important;
+  border: 1px solid var(--border, #2d3a4a) !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-2) var(--space-3) !important;
+}

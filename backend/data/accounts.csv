@@ -1,0 +1,4 @@
+id,user_id,name,account_type,currency
+16a0a7a2-0e21-4c23-9e1f-b94c02263d42,51916a85-65b5-424c-b958-553e8be6499c,Main Brokerage,brokerage,USD
+8245650c-44f9-4946-a51c-9389db63b58b,51916a85-65b5-424c-b958-553e8be6499c,IRA Traditional,ira,USD
+53126319-d35e-411c-b593-41ae85293d83,51916a85-65b5-424c-b958-553e8be6499c,Sweep Cash,cash,USD

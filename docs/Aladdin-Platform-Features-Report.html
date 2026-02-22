@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackRock Aladdin — Platform Features Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a222c;
+      --surface-alt: #232d3a;
+      --text: #e6edf3;
+      --text-muted: #8b9cb3;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --gold: #d4a853;
+      --gold-soft: rgba(212, 168, 83, 0.12);
+      --border: #2d3a4a;
+      --success: #22c55e;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .report-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .report-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .intro {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .intro p {
+      margin: 0 0 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .intro p:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin: 2.5rem 0 1rem;
+      color: var(--gold);
+      letter-spacing: -0.01em;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    ul {
+      margin: 0.5rem 0 1rem;
+      padding-left: 1.35rem;
+    }
+
+    li {
+      margin: 0.35rem 0;
+      color: var(--text-muted);
+    }
+
+    li strong {
+      color: var(--text);
+    }
+
+    p {
+      margin: 0.5rem 0 1rem;
+      color: var(--text-muted);
+    }
+
+    .feature-block {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    .feature-block h3 {
+      margin-top: 0;
+    }
+
+    .summary-section {
+      margin-top: 3rem;
+    }
+
+    .summary-section h2 {
+      margin-bottom: 1.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem 1.25rem;
+      background: var(--surface-alt);
+      color: var(--gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+    }
+
+    td {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    tr:hover td {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    td:first-child {
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--gold-soft);
+      color: var(--gold);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #fff; color: #1a1a1a; }
+      .page { max-width: 100%; }
+      .intro, .feature-block, .surface { background: #f5f5f5 !important; border-color: #ddd !important; }
+      th { color: #333 !important; }
+      td { color: #444 !important; }
+      h2 { color: #333 !important; }
+      .report-title, .report-subtitle { color: #1a1a1a !important; }
+      li, p { color: #444 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1 class="report-title">BlackRock Aladdin</h1>
+      <p class="report-subtitle">Platform Features Report — Research Summary</p>
+    </header>
+
+    <div class="intro">
+      <p><strong>What it is:</strong> Aladdin (Asset, Liability, Debt and Derivative Investment Network) is BlackRock’s investment management and risk platform. It’s used by institutions (asset managers, insurers, pensions, wealth managers) to manage portfolios across public and private markets. Publicly reported figures put assets on the platform at tens of trillions of dollars (e.g. ~$21.6T cited for 2020).</p>
+    </div>
+
+    <h2>1. Whole-Portfolio Management</h2>
+    <div class="feature-block">
+      <h3>Single view across public and private assets</h3>
+      <p>One place to see risk and performance across equities, fixed income, derivatives, alternatives, and private markets (e.g. private equity, private credit, real estate, infrastructure).</p>
+    </div>
+    <div class="feature-block">
+      <h3>Portfolio construction and optimization</h3>
+      <p>Tools to build and optimize portfolios (e.g. target risk/return, constraints) with a common data model across asset classes.</p>
+    </div>
+    <div class="feature-block">
+      <h3>End-to-end investment cycle</h3>
+      <p>Covers portfolio design, trading, performance, operations, and accounting in one platform rather than many disconnected systems.</p>
+    </div>
+
+    <h2>2. Risk Analytics (Aladdin Risk)</h2>
+    <ul>
+      <li><strong>Multi-asset risk engine</strong> — Proprietary risk models with thousands of risk factors and hundreds of risk/exposure metrics, updated frequently (e.g. daily).</li>
+      <li><strong>Risk decomposition</strong> — Break down risk by portfolio, factor, sector, or security (not only by asset class), including “bottoms-up” security-level analysis.</li>
+      <li><strong>Stress and scenario analysis</strong> — Stress tests and “what-if” scenarios (e.g. market shocks, crises, pandemics), including Monte Carlo–style simulations for equities and bonds.</li>
+      <li><strong>Configurable dashboards</strong> — Risk and exposure views tailored to different roles (PM, risk, CRO).</li>
+      <li><strong>Whole-portfolio risk</strong> — Combined view with private markets (e.g. via eFront) so public and private risks can be analyzed together.</li>
+    </ul>
+
+    <h2>3. Trading and Order Management</h2>
+    <ul>
+      <li><strong>Centralized execution</strong> — Orders routed through a unified trading layer to internal/external execution venues, with separation of duties between trading functions.</li>
+      <li><strong>Best execution and compliance</strong> — Execution and order-placement policies aligned with regulation in multiple jurisdictions; support for compliance around best execution and order handling.</li>
+      <li><strong>Integration with markets</strong> — Native links to broker-dealers, trading venues, and execution platforms.</li>
+    </ul>
+
+    <h2>4. Operations and Accounting (Aladdin Accounting)</h2>
+    <ul>
+      <li><strong>Investment accounting</strong> — Front-to-back accounting for securities, alternatives, loans, and derivatives, with support for standards such as GAAP/IFRS.</li>
+      <li><strong>Performance measurement and composites</strong> — Returns, attribution, and composite administration for reporting and client reporting.</li>
+      <li><strong>Middle-office workflows</strong> — Operations across the investment lifecycle (settlement, corporate actions, reconciliation, etc.) with connectivity to custodians and asset servicers.</li>
+    </ul>
+
+    <h2>5. Private Markets and Alternatives (eFront / eFront Insight)</h2>
+    <ul>
+      <li><strong>Post-investment workflows</strong> — Deal flow, capital calls, distributions, valuations, and reporting for private equity, private credit, real estate, infrastructure.</li>
+      <li><strong>Pre-investment (eFront Insight)</strong> — Use of Preqin-style data for manager discovery, due diligence (by strategy, track record, operations), and pre-investment analytics.</li>
+      <li><strong>Unified public + private</strong> — Same platform and data language for both liquid and illiquid portfolios, with risk and reporting across the whole portfolio.</li>
+    </ul>
+
+    <h2>6. Data and Analytics</h2>
+    <ul>
+      <li><strong>Aladdin Data Cloud</strong> — Cloud data platform (e.g. Snowflake-based) for investment data: pipelines, governance, and analytics/reporting.</li>
+      <li><strong>Aladdin Studio</strong> — Environment to explore and analyze data, build custom analytics, and connect to BI tools.</li>
+      <li><strong>Aladdin Tools for Excel (ATX)</strong> — Excel-based access to Aladdin data for custom reports and ad hoc analysis.</li>
+      <li><strong>API-first</strong> — APIs for integration with internal systems, data providers, and third-party tools.</li>
+    </ul>
+
+    <h2>7. ESG and Climate (Aladdin Sustainability, Aladdin Climate)</h2>
+    <ul>
+      <li><strong>ESG integration</strong> — Sustainability and ESG analytics in portfolio and risk workflows (e.g. Clarity AI–style data and analytics for environmental/social impact and disclosure).</li>
+      <li><strong>Climate risk</strong> — Aladdin Climate focuses on quantifying and assessing climate-related risk in portfolios (transition and physical risk).</li>
+      <li><strong>Reporting and disclosure</strong> — Support for sustainability and climate-related reporting and regulatory disclosure.</li>
+    </ul>
+
+    <h2>8. Wealth Management (Aladdin Wealth)</h2>
+    <ul>
+      <li><strong>Personalization at scale</strong> — Centrally managed programs (e.g. model portfolios, mandates) with the ability to personalize at the client or account level.</li>
+      <li><strong>Whole-portfolio view for wealth</strong> — Same “whole portfolio” idea for wealth managers: public and private, all in one place.</li>
+      <li><strong>Compliance and suitability</strong> — Integration with tools like Investment Navigator for cross-border compliance and product suitability (e.g. MiFID, local rules).</li>
+      <li><strong>Jurisdictions</strong> — Positioned for institutional/professional wealth in multiple regions (e.g. U.S., Canada, UK, EEA, Singapore).</li>
+    </ul>
+
+    <h2>9. Ecosystem and Infrastructure</h2>
+    <ul>
+      <li><strong>Integrations</strong> — Built-in links to major asset servicers, custodians, broker-dealers, trading platforms, and data providers.</li>
+      <li><strong>Implementation and support</strong> — Dedicated implementation (e.g. Aladdin Client Transformation / ACT) and ongoing support; BlackRock cites long-running use (e.g. 30+ years) and large internal tech and data teams (e.g. thousands of engineers and modelers).</li>
+      <li><strong>Stability and scale</strong> — Run across multiple data centers with emphasis on reliability and continuous enhancement.</li>
+    </ul>
+
+    <h2>10. Design Principles (as described by BlackRock)</h2>
+    <ul>
+      <li><strong>Common data language</strong> — One consistent data model across asset classes and workflows to reduce reconciliation and integration issues.</li>
+      <li><strong>Open, API-first, “AI-ready”</strong> — Built to integrate with existing tech and to extend with APIs and modern analytics/AI.</li>
+      <li><strong>Front-to-back</strong> — One platform from idea and risk through trading, operations, accounting, and reporting.</li>
+    </ul>
+
+    <section class="summary-section">
+      <h2>Summary Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Main features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Portfolio</td>
+            <td>Whole-portfolio view, optimization, public + private, multi-asset</td>
+          </tr>
+          <tr>
+            <td>Risk</td>
+            <td>Multi-factor models, stress/scenario, decomposition, dashboards</td>
+          </tr>
+          <tr>
+            <td>Trading</td>
+            <td>Order management, execution, best execution, compliance</td>
+          </tr>
+          <tr>
+            <td>Operations</td>
+            <td>Accounting, performance, composites, middle-office, GAAP/IFRS</td>
+          </tr>
+          <tr>
+            <td>Private markets</td>
+            <td>eFront + eFront Insight (Preqin data), pre/post investment, LP workflows</td>
+          </tr>
+          <tr>
+            <td>Data</td>
+            <td>Data Cloud, Studio, Excel tools, APIs</td>
+          </tr>
+          <tr>
+            <td>ESG / Climate</td>
+            <td>Sustainability and climate risk analytics and reporting</td>
+          </tr>
+          <tr>
+            <td>Wealth</td>
+            <td>Aladdin Wealth: personalization, suitability, cross-border compliance</td>
+          </tr>
+          <tr>
+            <td>Ecosystem</td>
+            <td>Custodians, brokers, data vendors, implementation and support</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>Aladdin Platform Features Report — Research summary for review. Not affiliated with BlackRock.</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+id,user_id,name,allocation_json
+6afde736-61d3-4824-9a61-eae26ae4f53f,51916a85-65b5-424c-b958-553e8be6499c,Moderate Growth 60/40,"{""equity"": 60, ""fixed_income"": 40}"
+e6601104-7db6-4998-bcd2-6e5fa1b01335,51916a85-65b5-424c-b958-553e8be6499c,Conservative Income,"{""equity"": 30, ""fixed_income"": 70}"
+039c3be1-ffd7-4ffd-8a4d-4368b7244369,51916a85-65b5-424c-b958-553e8be6499c,Aggressive Growth,"{""equity"": 90, ""fixed_income"": 10}"

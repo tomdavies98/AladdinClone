@@ -1,0 +1,220 @@
+.crud-section {
+  margin-top: var(--space-5);
+}
+
+.crud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.crud-header h2 {
+  font-size: var(--font-subsection);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text, #e6edf3);
+  margin: 0;
+}
+
+.btn-primary {
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-primary:focus-visible,
+.btn-sm:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.btn-sm.danger:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: var(--focus-offset);
+}
+
+.btn-sm {
+  padding: var(--space-1) var(--space-2);
+  margin-right: var(--space-2);
+  font-size: 0.85rem;
+  background: var(--surface-alt, #232d3a);
+  color: var(--text, #e6edf3);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.btn-sm:hover {
+  background: var(--border, #2d3a4a);
+}
+
+.btn-sm.danger {
+  color: var(--danger, #ef4444);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.btn-sm.danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.crud-section:has(.crud-table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crud-table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  background: var(--surface, #1a222c);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border, #2d3a4a);
+}
+
+.crud-table th,
+.crud-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border, #2d3a4a);
+}
+
+.crud-table th {
+  background: var(--surface-alt, #232d3a);
+  color: var(--gold, #d4a853);
+  font-size: var(--font-caption);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.crud-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.crud-table tr.selected {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.crud-table .link {
+  background: none;
+  border: none;
+  color: var(--accent, #3b82f6);
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.crud-table .link:hover {
+  text-decoration: underline;
+}
+
+.muted {
+  color: var(--text-muted, #8b9cb3);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--surface, #1a222c);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  min-width: 320px;
+  max-width: 90vw;
+  box-shadow: var(--shadow-md);
+}
+
+.modal h3 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-subsection);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text, #e6edf3);
+}
+
+.modal label {
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.modal label span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted, #8b9cb3);
+  margin-bottom: var(--space-1);
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg, #0f1419);
+  border: 1px solid var(--border, #2d3a4a);
+  border-radius: var(--radius-md);
+  color: var(--text, #e6edf3);
+}
+
+.modal input:focus,
+.modal select:focus {
+  border-color: var(--accent, #3b82f6);
+}
+
+.modal input:focus-visible,
+.modal select:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.modal input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.modal input:disabled,
+.modal select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-actions {
+  margin-top: var(--space-5);
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.modal-actions button[type="submit"] {
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  border: none;
+}
+
+.modal-actions button[type="button"] {
+  background: transparent;
+  color: var(--text-muted, #8b9cb3);
+  border: 1px solid var(--border, #2d3a4a);
+}

@@ -1,0 +1,4 @@
+id,user_id,name,report_type,config_json,created_at
+cf89efbe-9dcb-4292-a8f2-9a76676f72fd,51916a85-65b5-424c-b958-553e8be6499c,Monthly Performance Summary,performance,"{""period"": ""1M""}",2026-02-22T17:06:58.808400+00:00
+e937a6b8-33ac-4200-9638-92dfcb6ac88a,51916a85-65b5-424c-b958-553e8be6499c,Sector Attribution,attribution,"{""benchmark"": ""SP500""}",2026-02-22T17:06:58.808400+00:00
+5e601c87-caad-4f63-b33c-81e3a96327f4,51916a85-65b5-424c-b958-553e8be6499c,Holdings Export,holdings,"{""format"": ""csv""}",2026-02-22T17:06:58.808400+00:00
