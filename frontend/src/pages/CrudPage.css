@@ -65,6 +65,14 @@
   background: rgba(239, 68, 68, 0.15);
 }
 
+:root[data-theme="light"] .btn-sm.danger {
+  border-color: rgba(185, 28, 28, 0.5);
+}
+
+:root[data-theme="light"] .btn-sm.danger:hover {
+  background: rgba(185, 28, 28, 0.1);
+}
+
 .crud-section:has(.crud-table) {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -98,6 +106,10 @@
 
 .crud-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
+}
+
+:root[data-theme="light"] .crud-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .crud-table tr.selected {

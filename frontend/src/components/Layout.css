@@ -1,13 +1,14 @@
 /* Theme: set on document.documentElement via Layout */
 :root[data-theme="light"] {
-  --bg: #f0f2f5;
+  --bg: #f6f8fa;
   --surface: #ffffff;
-  --border: #e1e4e8;
-  --text: #1f2328;
-  --text-muted: #656d76;
-  --accent: #0969da;
-  --gold: #9a6700;
-  --danger: #cf222e;
+  --surface-alt: #eef1f5;
+  --border: #d0d7de;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --accent: #2563eb;
+  --gold: #b45309;
+  --danger: #b91c1c;
 }
 :root[data-theme="dark"],
 :root {
@@ -141,6 +142,16 @@
   border-left-color: var(--gold, #d4a853);
 }
 
+/* Light theme: sidebar and nav need different hover/active for readability */
+:root[data-theme="light"] .sidebar-link:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme="light"] .sidebar-link.active {
+  background: rgba(180, 83, 9, 0.12);
+  border-left-color: var(--gold);
+}
+
 .sidebar-link:focus-visible,
 .sidebar-brand:focus-visible {
   outline: var(--focus-ring);
@@ -161,6 +172,12 @@
 .sidebar-logout:hover {
   color: var(--text, #e6edf3);
   border-color: var(--text-muted, #8b9cb3);
+}
+
+:root[data-theme="light"] .sidebar-logout:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .sidebar-logout:focus-visible {
