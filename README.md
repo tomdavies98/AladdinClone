@@ -115,3 +115,9 @@ All data is user-scoped; the backend filters by the authenticated user’s ID.
 5. **Create an account** — From the login page, use the **create an account** link to go to `/signup`. Enter username, password, confirm password, and optional display name, then submit. You are signed in automatically and taken to the dashboard.
 
 After signing in, use the sidebar to open any feature (Portfolio, Risk, Trading, Operations, etc.). Signing out returns you to the landing page.
+
+
+## Tests
+
+<img width="1549" height="734" alt="tests" src="https://github.com/user-attachments/assets/ec1f4c1a-722f-4fe1-aee6-f92fb9a24eb4" />
+
