@@ -4,14 +4,33 @@
 
 *This application was created by leveraging different A.I models. A code review with issues to resolve is attached in the docs folder. Download and open the code review html file to view.*
 
+**Tech stack:** React, TypeScript, Vite, FastAPI, Python 3.11, JWT (Python-JOSE), Pydantic, CSV-backed storage.
+
 A simplified clone of an Aladdin-style investment management platform: React frontend, Python (FastAPI) backend, and CSV-backed storage. Users can log in and manage portfolios, risk scenarios, orders, operations, private markets, reports, ESG data, wealth models, integrations, and preferences.
 
-## Prerequisites
+## Architecture
+
+```mermaid
+flowchart LR
+  Browser --> React
+  React["React (Vite)"]
+  React --> FastAPI["FastAPI"]
+  FastAPI --> CSV["CSV store"]
+  CSV --> Data[(backend/data)]
+```
+
+Browser → React (Vite) → FastAPI → CSV store (`backend/data/`).
+
+## How to run
+
+### Prerequisites
 
 - **Backend:** Python 3.11+
 - **Frontend:** Node.js 18+ and npm
 
-## Backend
+### 1. Run locally
+
+#### Backend
 
 1. Create a virtual environment and install dependencies:
 
@@ -47,7 +66,9 @@ A simplified clone of an Aladdin-style investment management platform: React fro
 
    The API will serve at `http://127.0.0.1:8000`. Data is stored under `backend/data/` as CSV files (one file per table).
 
-## Frontend
+**API documentation:** When the backend is running, interactive API docs are available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) (Swagger UI) and [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc) (ReDoc).
+
+#### Frontend
 
 1. Install dependencies and start the dev server:
 
@@ -64,6 +85,17 @@ A simplified clone of an Aladdin-style investment management platform: React fro
    - **Username:** `demo`  
    - **Password:** `demo`
 
+### 2. Docker
+
+Docker is not set up in this repo. You can add Dockerfiles and `docker-compose` for a one-command run (see project docs or the “Docker and one-command run” section of the plan).
+
+### 3. Testing
+
+- **Backend** (from `backend/`): `pip install -r requirements.txt` then `python -m pytest tests/ -v`
+- **Frontend** (from `frontend/`): `npm run lint` then `npm run build` (add `npm run test` when frontend tests are added)
+
+See the [Testing](#testing) section below for details.
+
 ## Project layout
 
 - **backend/** — FastAPI app
@@ -77,6 +109,8 @@ A simplified clone of an Aladdin-style investment management platform: React fro
   - `src/` — App, router, auth context, API client, layout, and feature pages with CRUD UI
 
 ## Testing
+
+One-liner commands are in [How to run → 3. Testing](#3-testing).
 
 Backend tests live in `backend/tests/` and use pytest with FastAPI’s `TestClient`. They run against a temporary data directory (no need to touch `backend/data/`).
 
