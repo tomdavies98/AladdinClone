@@ -72,8 +72,22 @@ A simplified clone of an Aladdin-style investment management platform: React fro
   - `app/db/csv_store.py` — CSV read/write abstraction
   - `app/api/` — Auth and v1 routers (portfolios, risk, trading, operations, private-markets, data-analytics, esg-climate, wealth, ecosystem, design-principles)
   - `data/` — CSV tables (created at runtime)
+  - `tests/` — Backend tests (pytest)
 - **frontend/** — Vite + React + TypeScript
   - `src/` — App, router, auth context, API client, layout, and feature pages with CRUD UI
+
+## Testing
+
+Backend tests live in `backend/tests/` and use pytest with FastAPI’s `TestClient`. They run against a temporary data directory (no need to touch `backend/data/`).
+
+From the `backend/` directory:
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/ -v
+```
+
+Tests cover auth (login, register, protected routes, invalid token) and portfolios (CRUD and user isolation).
 
 ## Features (from report)
 
