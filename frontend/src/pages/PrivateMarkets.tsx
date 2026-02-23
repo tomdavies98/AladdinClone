@@ -23,9 +23,12 @@ export default function PrivateMarkets() {
   useEffect(() => { load(); }, []);
 
   useEffect(() => {
-    if (!selected) { setCommitments([]); return; }
+    if (!selected) {
+      queueMicrotask(() => setCommitments([]));
+      return;
+    }
     api<Commitment[]>(`/private-markets/funds/${selected.id}/commitments`).then(setCommitments);
-  }, [selected?.id]);
+  }, [selected]);
 
   const openFundModal = (f?: Fund) => {
     setEditFund(f ?? null);

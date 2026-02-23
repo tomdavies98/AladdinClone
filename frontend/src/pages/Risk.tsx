@@ -24,9 +24,12 @@ export default function Risk() {
   useEffect(() => { load(); api<Portfolio>('/portfolios').then(setPortfolios); }, []);
 
   useEffect(() => {
-    if (!selected) { setResults([]); return; }
+    if (!selected) {
+      queueMicrotask(() => setResults([]));
+      return;
+    }
     api<Result[]>(`/risk/scenarios/${selected.id}/results`).then(setResults);
-  }, [selected?.id]);
+  }, [selected]);
 
   const openScenarioModal = (s?: Scenario) => {
     setEditScenario(s ?? null);

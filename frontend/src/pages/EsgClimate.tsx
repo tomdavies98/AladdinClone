@@ -17,10 +17,12 @@ export default function EsgClimate() {
   const [form, setForm] = useState({ portfolio_id: '', score_type: 'ESG', value: '', as_of_date: new Date().toISOString().slice(0, 10) });
 
   const load = () => {
-    api<Esg[]>('/esg-climate').then(setList);
-    api<Portfolio>('/portfolios').then(setPortfolios);
+    Promise.all([api<Esg[]>('/esg-climate'), api<Portfolio>('/portfolios')]).then(([listData, portfolioData]) => {
+      setList(listData);
+      setPortfolios(portfolioData);
+    }).finally(() => setLoading(false));
   };
-  useEffect(() => { load(); setLoading(false); }, []);
+  useEffect(() => { load(); }, []);
 
   const openModal = (e?: Esg) => {
     setEditEsg(e ?? null);

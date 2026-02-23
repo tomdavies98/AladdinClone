@@ -17,10 +17,12 @@ export default function Trading() {
   const [form, setForm] = useState({ portfolio_id: '', symbol: '', side: 'BUY', quantity: '', order_type: 'MARKET' });
 
   const load = () => {
-    api<Order[]>('/trading/orders').then(setOrders);
-    api<Portfolio>('/portfolios').then(setPortfolios);
+    Promise.all([api<Order[]>('/trading/orders'), api<Portfolio>('/portfolios')]).then(([ordersData, portfolioData]) => {
+      setOrders(ordersData);
+      setPortfolios(portfolioData);
+    }).finally(() => setLoading(false));
   };
-  useEffect(() => { load(); setLoading(false); }, []);
+  useEffect(() => { load(); }, []);
 
   const openModal = (o?: Order) => {
     setEditOrder(o ?? null);

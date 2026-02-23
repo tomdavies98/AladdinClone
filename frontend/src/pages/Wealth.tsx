@@ -19,10 +19,12 @@ export default function Wealth() {
   const [accountForm, setAccountForm] = useState({ model_id: '', name: '' });
 
   const load = () => {
-    api<Model[]>('/wealth/models').then(setModels);
-    api<ClientAccount[]>('/wealth/client-accounts').then(setAccounts);
+    Promise.all([api<Model[]>('/wealth/models'), api<ClientAccount[]>('/wealth/client-accounts')]).then(([modelsData, accountsData]) => {
+      setModels(modelsData);
+      setAccounts(accountsData);
+    }).finally(() => setLoading(false));
   };
-  useEffect(() => { load(); setLoading(false); }, []);
+  useEffect(() => { load(); }, []);
 
   const openModelModal = (m?: Model) => {
     setEditModel(m ?? null);

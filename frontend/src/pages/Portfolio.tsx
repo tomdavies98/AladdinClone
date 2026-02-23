@@ -24,7 +24,10 @@ export default function Portfolio() {
   useEffect(() => { load(); }, []);
 
   useEffect(() => {
-    if (portfolios.length === 0) { setPortfolioTotals({}); return; }
+    if (portfolios.length === 0) {
+      queueMicrotask(() => setPortfolioTotals({}));
+      return;
+    }
     Promise.all(
       portfolios.map((p) =>
         api<Holding[]>(`/portfolios/${p.id}/holdings`).then((h) => ({
@@ -36,13 +39,16 @@ export default function Portfolio() {
   }, [portfolios]);
 
   useEffect(() => {
-    if (!selected) { setHoldings([]); return; }
+    if (!selected) {
+      queueMicrotask(() => setHoldings([]));
+      return;
+    }
     api<Holding[]>(`/portfolios/${selected.id}/holdings`).then((h) => {
       setHoldings(h);
       const total = h.reduce((sum, x) => sum + (parseFloat(x.quantity) || 0) * (parseFloat(x.avg_cost) || 0), 0);
       setPortfolioTotals((prev) => ({ ...prev, [selected.id]: Math.round(total * 100) / 100 }));
     });
-  }, [selected?.id]);
+  }, [selected]);
 
   const openPortfolioModal = (p?: Portfolio) => {
     setEditPortfolio(p ?? null);

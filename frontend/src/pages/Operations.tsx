@@ -23,9 +23,12 @@ export default function Operations() {
   useEffect(() => { load(); }, []);
 
   useEffect(() => {
-    if (!selected) { setTransactions([]); return; }
+    if (!selected) {
+      queueMicrotask(() => setTransactions([]));
+      return;
+    }
     api<Transaction[]>(`/operations/accounts/${selected.id}/transactions`).then(setTransactions);
-  }, [selected?.id]);
+  }, [selected]);
 
   const openAccountModal = (a?: Account) => {
     setEditAccount(a ?? null);

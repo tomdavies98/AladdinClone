@@ -21,7 +21,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    refresh();
+    queueMicrotask(() => refresh());
   }, [refresh]);
 
   return (

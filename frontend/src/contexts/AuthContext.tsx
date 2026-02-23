@@ -16,18 +16,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const t = localStorage.getItem('token');
-    const u = localStorage.getItem('user');
-    if (t && u) {
-      try {
-        setUser(JSON.parse(u));
-        setToken(t);
-      } catch {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+    queueMicrotask(() => {
+      const t = localStorage.getItem('token');
+      const u = localStorage.getItem('user');
+      if (t && u) {
+        try {
+          setUser(JSON.parse(u));
+          setToken(t);
+        } catch {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
       }
-    }
-    setIsReady(true);
+      setIsReady(true);
+    });
   }, []);
 
   const login = useCallback((userId: string, displayName: string, newToken: string) => {
