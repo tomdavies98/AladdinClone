@@ -12,14 +12,12 @@ A simplified clone of an Aladdin-style investment management platform: React fro
 
 ```mermaid
 flowchart LR
-  Browser --> React
-  React["React (Vite)"]
-  React --> FastAPI["FastAPI"]
-  FastAPI --> CSV["CSV store"]
-  CSV --> Data[(backend/data)]
+  Browser --> React["React (Vite)"]
+  React --> Backend["Backend"]
+  Backend --> DB["Database (CSV)"]
 ```
 
-Browser → React (Vite) → FastAPI → CSV store (`backend/data/`).
+Browser → React (Vite) → Backend → Database (CSV). The backend is the only component that calls the database (`backend/data/`).
 
 ## How to run
 
